@@ -37,3 +37,12 @@ nfpms:
       - deb
       - rpm
       - apk
+brews:
+  - name: 'sourceseedy'
+    tap:
+      owner: drewstinnett
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    description: "Get reverse IP pointers on the cli"
+    homepage: "https://github.com/drewstinnett/flipip"
+    license: APACHE-2.0
