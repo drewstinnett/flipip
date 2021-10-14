@@ -38,7 +38,7 @@ nfpms:
       - rpm
       - apk
 brews:
-  - name: 'sourceseedy'
+  - name: 'flipip'
     tap:
       owner: drewstinnett
       name: homebrew-tap
