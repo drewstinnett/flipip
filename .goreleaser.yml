@@ -1,0 +1,39 @@
+---
+project_name: flipip
+builds:
+  - env:
+      - CGO_ENABLED=0
+    mod_timestamp: '{{ .CommitTimestamp }}'
+    flags:
+      - -trimpath
+    ldflags:
+      - '-s -w'
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    binary: 'flipip'
+archives:
+  - format: tar.gz
+    name_template: 'flipip-{{ .Version }}_{{ .Os }}_{{ .Arch }}'
+    format_overrides:
+      - goos: windows
+        format: zip
+    replacements:
+      darwin: macOS
+checksum:
+  name_template: 'flipip-{{ .Version }}_SHA256SUMS'
+  algorithm: sha256
+snapshot:
+  name_template: "{{ .Tag }}-snapshot"
+changelog:
+  skip: true
+nfpms:
+  - id: packages
+    bindir: /usr/bin
+    formats:
+      - deb
+      - rpm
+      - apk
