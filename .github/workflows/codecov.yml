@@ -1,0 +1,29 @@
+---
+name: codecov
+on: [push]
+jobs:
+
+  codecov:
+    name: codecov
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17.1
+
+      - name: Generate coverage report
+        run: |
+          go test `go list ./... | grep -v examples` -coverprofile=coverage.txt -covermode=atomic
+
+      - uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}  # not required for public repos
+          files: ./coverage.txt
+          fail_ci_if_error: true  # optional (default = false)
+          verbose: true  # optional (default = false)
